@@ -1,2 +1,5 @@
 # Var_Effect
-Quantify and visualize mutations at the protein level
+Objective: Highlight variant effects
+Tools: Rentrez R package, mutscan
+
+Rentrez: searches NCBI for gene information(e.g sequence)
