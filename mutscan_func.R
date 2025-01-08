@@ -15,12 +15,23 @@ get_mrNA_seq<-function(gene_name){
   return(mRNA_seq)
 
 }
-
-make_fastq<-function(gene_mRNA){
+writeLines(paste("Read", line_num), fastq_file)
+make_fastq<-function(gene_mRNA,fastq_file_name){
   seq<-strsplit(gene_mRNA,"\n")
-  return(seq)
+  fastq_file<-file(fastq_file_name,"w")
+  for(line in seq){
+    line_num<-1
+    writeLines(paste("Read ",line_num),fastq_file)
+    writeLines(line,fastq_file)
+    writeLines("+",fastq_file)
+    writeLines(paste(rep(40, nchar(length(line)))),fastq_file)
+    line_num=line_num+1
+  }
+  
+  close(fastq_file)
+  return(fastq_file)
 }
 
 pkhd1_mrna<-get_mrNA_seq("PKHD1")
-pkhd1_mrna_fastq<- make_fastq(pkhd1_mrna)
+make_fastq(pkhd1_mrna,"pkhd1_mrna.fastq")
 print(pkhd1_mrna_fastq)
