@@ -5,7 +5,7 @@ import pandas as pd
 df=pd.read_csv("VUS_and_scores.csv")
 df["Gene"]=df["Gene"]+"_HUMAN" # format for gene:"LAMB2_HUMAN"
 def search_uniprot_ids(query):
-        Entrez.email = "jonick9090@gmail.com"
+        Entrez.email = ""
         handle = Entrez.esearch(db="protein", term=query, retmax=10)  # Search for top 10 results
         record = Entrez.read(handle)
         try:
@@ -19,7 +19,7 @@ for i in range(len(df)):
         gene_ids.append(search_uniprot_ids(df.iloc[i]["Gene"]))
 
 def get_protein_sequence(accession):
-    Entrez.email = "jonick9090@gmail.com"
+    Entrez.email = ""
     handle = Entrez.efetch(db="protein", id=accession, rettype="gb", retmode="text")
     record = SeqIO.read(handle, "genbank")
     return record.seq
