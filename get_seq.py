@@ -2,6 +2,7 @@
 from Bio import Entrez #idea to use modules source: CHATGPT
 from Bio import SeqIO
 import pandas as pd
+import textwrap
 df=pd.read_csv("VUS_and_scores.csv")
 df["Gene"]=df["Gene"]+"_HUMAN" # format for gene:"LAMB2_HUMAN"
 def search_uniprot_ids(query):
@@ -31,5 +32,5 @@ for i in range(len(gene_ids)):
         except TypeError:
                 continue
         else:
-                print(str(seq),file=fasta_file)
+                print(textwrap.fill(str(seq),width=50),file=fasta_file)
         fasta_file.close()
