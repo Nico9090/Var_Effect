@@ -21,16 +21,20 @@ for i in range(len(df)):
 
 def get_protein_sequence(accession):
     Entrez.email = ""
-    handle = Entrez.efetch(db="protein", id=accession, rettype="gb", retmode="text")
-    record = SeqIO.read(handle, "genbank")
-    return record.seq
+    handle = Entrez.efetch(db="protein", id=accession, rettype="fasta", retmode="text")
+    record = SeqIO.read(handle, "fasta")
+    return record.description, record.seq
 
 for i in range(len(gene_ids)):
         fasta_file=open((df.iloc[i]["Gene"]+".fasta"),'w')
         try:
-                seq=get_protein_sequence(gene_ids[i])
+                header=get_protein_sequence(gene_ids[i])[0]
+                seq=get_protein_sequence(gene_ids[i])[1]
+        except ValueError:
+                continue
         except TypeError:
                 continue
         else:
+                print(">",str(header),file=fasta_file)
                 print(textwrap.fill(str(seq),width=50),file=fasta_file)
         fasta_file.close()
