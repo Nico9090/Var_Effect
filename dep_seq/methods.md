@@ -1,4 +1,4 @@
-=Methods
+Methods
 
 Obtained SRA data from NCBI.
 Experiment: 	
