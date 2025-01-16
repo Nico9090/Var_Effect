@@ -1,0 +1,27 @@
+---
+title: "c-MyC_and_setd2"
+output: html_document
+date: "2025-01-16"
+---
+
+```{r setup, include=FALSE}
+library(SummarizedExperiment)
+library(mutscan)
+#paired-end
+cmycO1<-digestFastqs(fastqForward = "SRR22997909_1.fastq.gz",#one is forward
+             fastqReverse = "SRR22997909_2.fastq.gz",#another is reverse
+             mergeForwardReverse = TRUE, #combine them as one
+             revComplForward = FALSE, #not needed to read 5 -> 3 appropriately
+             revComplReverse = TRUE, #needed to read 3 -> 5 end appropriately
+             elementsForward = "SUCV", 
+             elementLengthsForward = c(1, 10, 18, 96),
+             elementsReverse = "SUCVS", 
+             elementLengthsReverse = c(1, 7, 17, 96, -1))
+
+
+cmycO1$parameters
+
+summary(cmycO1)
+str(cmycO1)
+cmycO1$filterSummary
+```
